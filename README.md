@@ -22,6 +22,7 @@ Todos los comandos se ejecutan desde el directorio raiz de la practica.
 ## Comandos para iniciar el servidor y la base de datos.
 
 > docker-compose build
+
 > docker-compose up
 
 
