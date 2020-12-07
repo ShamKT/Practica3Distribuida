@@ -56,7 +56,7 @@ public class Main {
             while (toPeer == null) {
                 try {
                     Thread.sleep(ThreadLocalRandom.current().nextLong(0, 501));
-                    toPeer = new Socket("localhost", Integer.parseInt(args[1]));
+                    toPeer = new Socket("peernz", Integer.parseInt((args[1])));
                 } catch (ConnectException e) {
                     System.out.println("Fallo la conexión con el peer, reintentando...");
                 } catch (InterruptedException | IOException e) {
@@ -112,7 +112,7 @@ public class Main {
                     String word = message.getWord();
 
                     if ((((word.charAt(0) >= 65 && word.charAt(0) <= 77) || (word.charAt(0) >= 97 && word.charAt(0) <= 109)) && type.equals("AM"))
-                            || (((word.charAt(0) >= 78 && word.charAt(0) <= 90) || (word.charAt(0) >= 110 && word.charAt(0) <= 122)) && type.equals("NZ"))) {
+                            || (((word.charAt(0) >= 78 && word.charAt(0) <= 90) || (word.charAt(0) >= 110 && word.charAt(0) <= 122) || word.charAt(0) == 38) && type.equals("NZ"))) {
 
                         switch (message.getType()) {
                             case ADDEDIT:

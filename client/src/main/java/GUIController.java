@@ -1,5 +1,6 @@
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -39,7 +40,7 @@ public class GUIController implements Initializable {
         btnAddEdit.setDisable(true);
 
         txtWord.setTextFormatter(
-                new TextFormatter<String>(change -> change.getControlNewText().length() <= 32 && change.getControlNewText().matches("[a-zA-Z]*") ? change : null));
+                new TextFormatter<String>(change -> change.getControlNewText().length() <= 32 && change.getControlNewText().matches("[a-zñÑA-Z]*") ? change : null));
 
         txtDefinition.setTextFormatter(
                 new TextFormatter<String>(change -> change.getControlNewText().length() <= 256 ? change : null));
@@ -54,15 +55,31 @@ public class GUIController implements Initializable {
     }
 
     private void searchWord(){
-        txtDefinition.setText(Connection.getInstance().sendGet(new String[] {txtWord.getText(), txtDefinition.getText()}));
+        String word = txtWord.getText().replaceAll("ñ","&ntilde");
+        word = word.replaceAll("Ñ","&Ntilde");
+        txtDefinition.setText(Connection.getInstance().sendGet(new String[] {word, txtDefinition.getText()}));
     }
     
     private void addEditWord(){
-        Connection.getInstance().sendAddEdit(new String[] {txtWord.getText(), txtDefinition.getText()});
+        String word = txtWord.getText().replaceAll("ñ","&ntilde");
+        word = word.replaceAll("Ñ","&Ntilde");
+        Connection.getInstance().sendAddEdit(new String[] {word, txtDefinition.getText()});
     }
     
     private void updateList(){
-        lstContent.setItems(FXCollections.observableList(Connection.getInstance().sendGetList()));
+        LinkedList<String> list = Connection.getInstance().sendGetList();
+
+        
+        for (ListIterator<String> i = list.listIterator(); i.hasNext(); )
+
+        {
+            String word = i.next();
+            word = word.replaceAll("&ntilde","ñ");
+            word = word.replaceAll("&Ntilde","Ñ");
+            i.set(word);;
+        }
+        
+        lstContent.setItems(FXCollections.observableList(list));
 
     }
 

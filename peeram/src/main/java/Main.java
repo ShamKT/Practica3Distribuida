@@ -112,7 +112,7 @@ public class Main {
                     String word = message.getWord();
 
                     if ((((word.charAt(0) >= 65 && word.charAt(0) <= 77) || (word.charAt(0) >= 97 && word.charAt(0) <= 109)) && type.equals("AM"))
-                            || (((word.charAt(0) >= 78 && word.charAt(0) <= 90) || (word.charAt(0) >= 110 && word.charAt(0) <= 122)) && type.equals("NZ"))) {
+                            || (((word.charAt(0) >= 78 && word.charAt(0) <= 90) || (word.charAt(0) >= 110 && word.charAt(0) <= 122) || word.charAt(0) == 38) && type.equals("NZ"))) {
 
                         switch (message.getType()) {
                             case ADDEDIT:
