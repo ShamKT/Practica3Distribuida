@@ -35,6 +35,9 @@ public class GUIController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
+        btnSearch.setDisable(true);
+        btnAddEdit.setDisable(true);
+
         txtWord.setTextFormatter(
                 new TextFormatter<String>(change -> change.getControlNewText().length() <= 32 && change.getControlNewText().matches("[a-zA-Z]*") ? change : null));
 
@@ -46,6 +49,8 @@ public class GUIController implements Initializable {
         btnAddEdit.setOnAction(e -> addEditWord());
         
         btnUpdate.setOnAction(e -> updateList());
+
+        txtWord.setOnKeyReleased(e -> verifyLength());
     }
 
     private void searchWord(){
@@ -59,6 +64,16 @@ public class GUIController implements Initializable {
     private void updateList(){
         lstContent.setItems(FXCollections.observableList(Connection.getInstance().sendGetList()));
 
+    }
+
+    private void verifyLength(){
+        if (txtWord.getText().length() == 0) {
+            btnSearch.setDisable(true);
+            btnAddEdit.setDisable(true);
+        } else {
+            btnSearch.setDisable(false);
+            btnAddEdit.setDisable(false);
+        }
     }
     
 }
