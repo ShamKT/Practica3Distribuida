@@ -40,7 +40,7 @@ public class GUIController implements Initializable {
         btnAddEdit.setDisable(true);
 
         txtWord.setTextFormatter(
-                new TextFormatter<String>(change -> change.getControlNewText().length() <= 32 && change.getControlNewText().matches("[a-zñÑA-Z]*") ? change : null));
+                new TextFormatter<String>(change -> change.getControlNewText().length() <= 32 && change.getControlNewText().matches("[a-z\u00f1\u00d1A-Z]*") ? change : null));
 
         txtDefinition.setTextFormatter(
                 new TextFormatter<String>(change -> change.getControlNewText().length() <= 256 ? change : null));
@@ -55,14 +55,14 @@ public class GUIController implements Initializable {
     }
 
     private void searchWord(){
-        String word = txtWord.getText().replaceAll("ñ","&ntilde");
-        word = word.replaceAll("Ñ","&Ntilde");
+        String word = txtWord.getText().replaceAll("\u00f1","&ntilde");
+        word = word.replaceAll("\u00d1","&Ntilde");
         txtDefinition.setText(Connection.getInstance().sendGet(new String[] {word, txtDefinition.getText()}));
     }
     
     private void addEditWord(){
-        String word = txtWord.getText().replaceAll("ñ","&ntilde");
-        word = word.replaceAll("Ñ","&Ntilde");
+        String word = txtWord.getText().replaceAll("\u00f1","&ntilde");
+        word = word.replaceAll("\u00d1","&Ntilde");
         Connection.getInstance().sendAddEdit(new String[] {word, txtDefinition.getText()});
     }
     
@@ -74,8 +74,8 @@ public class GUIController implements Initializable {
 
         {
             String word = i.next();
-            word = word.replaceAll("&ntilde","ñ");
-            word = word.replaceAll("&Ntilde","Ñ");
+            word = word.replaceAll("&ntilde","\u00f1");
+            word = word.replaceAll("&Ntilde","\u00d1");
             i.set(word);;
         }
         
