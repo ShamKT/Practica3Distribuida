@@ -21,9 +21,18 @@ services:
         ports:
             - 8002
 
-    database:
-        build: ./database
-        container_name: database
+    databaseam:
+        build: ./databaseam
+        container_name: databaseam
+        restart: always
+        environment:
+                    MYSQL_ROOT_PASSWORD: password
+        ports:
+            - 3306
+            
+    databasenz:
+        build: ./databasenz
+        container_name: databasenz
         restart: always
         environment:
                     MYSQL_ROOT_PASSWORD: password
