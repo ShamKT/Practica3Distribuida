@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+    server:
+        build: ./server
+        container_name: server
+        restart: always
+        ports:
+            - "8000:8000"
+
+    peeram:
+        build: ./peeram
+        container_name: peeram
+        restart: always
+        ports:
+            - 8001
+            
+    peernz:
+        build: ./peernz
+        container_name: peernz
+        restart: always
+        ports:
+            - 8002
+
+    database:
+        build: ./database
+        container_name: database
+        restart: always
+        environment:
+                    MYSQL_ROOT_PASSWORD: password
+        ports:
+            - 3306

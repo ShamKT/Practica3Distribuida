@@ -56,7 +56,7 @@ public class Main {
             while (toPeer == null) {
                 try {
                     Thread.sleep(ThreadLocalRandom.current().nextLong(0, 501));
-                    toPeer = new Socket("localhost", Integer.parseInt(args[1]));
+                    toPeer = new Socket("peernz", Integer.parseInt((args[1])));
                 } catch (ConnectException e) {
                     System.out.println("Fallo la conexión con el peer, reintentando...");
                 } catch (InterruptedException | IOException e) {
@@ -126,7 +126,7 @@ public class Main {
                             case GET:
                                 String[] resultWord = selectWord(word);
                                 if (resultWord == null)
-                                    messageBack = new Message(Message.Type.SEND);
+                                    messageBack = new Message(Message.Type.SEND, new String[] {"",""});
                                 else
                                     messageBack = new Message(Message.Type.SEND, resultWord);
 

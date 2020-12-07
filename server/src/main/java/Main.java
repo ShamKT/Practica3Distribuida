@@ -30,8 +30,11 @@ public class Main {
         while (toPeer == null) {
             try {
                 Thread.sleep(ThreadLocalRandom.current().nextLong(0, 501));
-                // toPeer = new Socket("Localhost", ThreadLocalRandom.current().nextInt(8001, 8003));
-                toPeer = new Socket("Localhost", 8001);
+                int port = ThreadLocalRandom.current().nextInt(8001, 8003);
+                if (port == 8001)
+                    toPeer = new Socket("peeram", port);
+                else
+                    toPeer = new Socket("peernz", port);
 
                 System.out.println("Conectado con peer");
             } catch (ConnectException e) {
